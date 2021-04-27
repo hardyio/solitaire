@@ -4,6 +4,7 @@ class Deck {
   constructor(cards = freshDeck(), location) {
     this.cards = cards;
     this.location = location;
+    this.hiddenCards = this.numberOfCards - 1;
   }
   get numberOfCards() {
     return this.cards.length;
@@ -17,6 +18,27 @@ class Deck {
       const oldValue = this.cards[newIndex];
       this.cards[newIndex] = this.cards[i];
       this.cards[i] = oldValue;
+    }
+  }
+  getEmptyHTML() {
+    const emptyDiv = document.createElement("div");
+    emptyDiv.classList.add("slot", "empty-slot");
+    return emptyDiv;
+  }
+  render() {
+    this.location.innerHTML= "";
+    this.cards.forEach((card, index) => {
+      let cardDiv
+      if(index >= this.hiddenCards) {
+        cardDiv = card.getHTML();
+      } else {
+        cardDiv = card.getReverseHTML();
+      }
+      cardDiv.setAttribute("id", index);
+      this.location.appendChild(cardDiv);
+    });
+    if(this.isEmpty) {
+      this.location.appendChild(this.getEmptyHTML());
     }
   }
 }
