@@ -11,6 +11,7 @@ class Solitaire{
     this.destinationsLocations = Array.from(document.querySelectorAll(".destination"));
     this.piles = [];
     this.pilesLocations = Array.from(document.querySelectorAll(".location"));
+    this.leftDeck = document.querySelector(".left-deck");
   }
   layoutCards() {
     let slicePoint = 24;
@@ -30,9 +31,17 @@ class Solitaire{
       destination.render();
     });
   }
+  init() {
+    this.leftDeck.addEventListener("click", (event) => {
+      if(event.target.classList.contains("reverse")) {
+        this.mainDeck.showNext();
+      }
+    });
+  }
   startGame() {
     this.deck.shuffle();
     this.layoutCards();
+    this.init();
   }
 }
 

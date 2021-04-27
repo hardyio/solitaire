@@ -6,6 +6,34 @@ class MainDeck extends Deck {
     this.currentShow = this.numberOfCards - 1;
     this.reverseDeck = document.querySelector(".reverse");
   }
+  showNext() {
+    this.currentShow -= 1;
+    if(this.currentShow === 23) {
+      this.currentShow = -1;
+    }
+    if(this.currentShow > 0) {
+      this.render();
+      return;
+    }
+    if(this.currentShow === 0) {
+      this.reverseDeck.classList.add("hidden-reverse");
+      this.render();
+      return;
+    }
+    if(this.currentShow === -1) {
+      if(this.numberOfCards) {
+        this.reverseDeck.classList.remove("hidden-reverse");
+      }
+      this.location.innerHTML = "";
+      this.location.appendChild(this.getEmptyHTML());
+      return;
+    }
+    if(this.currentShow === -2) {
+      this.currentShow = this.numberOfCards - 1;
+      this.render()
+      return;
+    }
+  }
   remove(selected) {
     this.cards.splice(selected,1);
     this.currentShow += 1;
