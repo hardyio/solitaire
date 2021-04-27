@@ -6,6 +6,11 @@ class MainDeck extends Deck {
     this.currentShow = this.numberOfCards - 1;
     this.reverseDeck = document.querySelector(".reverse");
   }
+  remove(selected) {
+    this.cards.splice(selected,1);
+    this.currentShow += 1;
+    this.showNext();
+  }
   getEmptyHTML() {
     const emptyDiv = document.createElement("div");
     emptyDiv.classList.add("empty-space");

@@ -15,6 +15,20 @@ class Deck {
   get isEmpty() {
     return this.numberOfCards === 0 ? true : false;
   }
+  push(cards) {
+    cards.forEach((card) => {
+      this.cards.push(card);
+    });
+    this.render();
+  }
+  remove(selected) {
+    this.cards = this.cards.slice(0,selected);
+    this.render();
+  }
+  flipLastCard() {
+    this.hiddenCards -= 1;
+    this.render();
+  }
   shuffle() {
     for (let i = this.numberOfCards - 1; i > 0; i--) {
       const newIndex = Math.floor(Math.random() * (i + 1));
