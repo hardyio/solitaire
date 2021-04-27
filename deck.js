@@ -12,6 +12,9 @@ class Deck {
   get last() {
     return this.cards[this.numberOfCards-1];
   }
+  get isEmpty() {
+    return this.numberOfCards === 0 ? true : false;
+  }
   shuffle() {
     for (let i = this.numberOfCards - 1; i > 0; i--) {
       const newIndex = Math.floor(Math.random() * (i + 1));
