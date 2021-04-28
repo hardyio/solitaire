@@ -14,6 +14,7 @@ class Solitaire{
     this.leftDeck = document.querySelector(".left-deck");
     this.cardToCheck = false;
     this.selectedCards = {};
+    this.win = document.querySelector(".win");
   }
   layoutCards() {
     let slicePoint = 24;
@@ -54,6 +55,7 @@ class Solitaire{
         if(to > 7) {
           this.destinations[to - 8].push(this.mainDeck.cards[cardsToMoveIndex]);
           this.mainDeck.remove(cardsToMoveIndex);
+          this.checkIfWin();
           return;
         }
         this.piles[to].push([this.mainDeck.cards[cardsToMoveIndex]]);
@@ -68,6 +70,7 @@ class Solitaire{
       if(to > 7) {
         this.destinations[to - 8].push(this.piles[from].last);
         this.piles[from].remove(cardsToMoveIndex);
+        this.checkIfWin();
         return;
       }
       this.piles[to].push(this.piles[from].cards.slice(cardsToMoveIndex));
@@ -153,6 +156,18 @@ class Solitaire{
       });
     });
   }
+  checkIfWin() {
+    let stackedCards = 0;
+    this.destinations.forEach((destination) => {
+      stackedCards += destination.numberOfCards;
+    });
+    if(stackedCards === 52) {
+      this.victory();
+    }
+  }
+  victory() {
+    this.win.classList.remove("no-show");
+  }
   startGame() {
     this.deck.shuffle();
     this.layoutCards();
@@ -160,5 +175,23 @@ class Solitaire{
   }
 }
 
-let game = new Solitaire();
-game.startGame();
+class GameManager {
+  constructor() {
+    this.restartButton = document.querySelector(".button");
+    this.win = document.querySelector(".win");
+    this.init();
+  }
+  init() {
+    this.restartButton.addEventListener("click", () => {
+      this.win.classList.add("no-show");
+      this.play();
+    });
+    this.play();
+  }
+  play() {
+    this.game = new Solitaire();
+    this.game.startGame();
+  }
+}
+
+let gameManager = new GameManager();
