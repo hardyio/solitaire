@@ -1,4 +1,4 @@
-import {SUITS, VALUES} from './constants.js';
+import {SUITS, VALUES, CARD_VALUE_MAP} from './constants.js';
 
 class Deck {
   constructor(cards = freshDeck(), location) {
@@ -14,6 +14,21 @@ class Deck {
   }
   get isEmpty() {
     return this.numberOfCards === 0 ? true : false;
+  }
+  canPush(cardToPush) {
+    if(this.numberOfCards === 0 && cardToPush.value === "K") {
+      return true;
+    }
+    if(this.numberOfCards === this.hiddenCards) {
+      return false;
+    }
+    if(cardToPush.color === this.last.color) {
+      return false;
+    }
+    if(CARD_VALUE_MAP[cardToPush.value] + 1 != CARD_VALUE_MAP[this.last.value]) {
+      return false;
+    }
+    return true;
   }
   push(cards) {
     cards.forEach((card) => {
