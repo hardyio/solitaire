@@ -8,7 +8,7 @@ class MainDeck extends Deck {
   }
   showNext() {
     this.currentShow -= 1;
-    if(this.currentShow === 23) {
+    if(this.currentShow === this.numberOfCards) {
       this.currentShow = -1;
     }
     if(this.currentShow > 0) {
