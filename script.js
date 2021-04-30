@@ -11,10 +11,11 @@ class Solitaire{
     this.destinationsLocations = Array.from(document.querySelectorAll(".destination"));
     this.piles = [];
     this.pilesLocations = Array.from(document.querySelectorAll(".location"));
-    this.leftDeck = document.querySelector(".left-deck");
+    this.reverseDeck = document.querySelector(".left-deck .reverse");
     this.cardToCheck = false;
     this.selectedCards = {};
     this.win = document.querySelector(".win");
+    this.restartButton = document.querySelector(".button");
   }
   layoutCards() {
     let slicePoint = 24;
@@ -131,10 +132,10 @@ class Solitaire{
         this.cardToCheck = false;
       }
     });
-    this.leftDeck.addEventListener("click", (event) => {
-      if(event.target.classList.contains("reverse")) {
-        this.mainDeck.showNext();
-      }
+    this.reverseDeck.addEventListener("click", (event) => {
+      this.mainDeck.showNext();
+      this.unselect();
+      this.cardToCheck = false;
     });
     this.destinationsLocations.forEach((location, destinationIndex) => {
       location.addEventListener("click", (event) => {
@@ -155,6 +156,10 @@ class Solitaire{
         }
       });
     });
+    this.restartButton.addEventListener("click", () => {
+      this.win.classList.add("no-show");
+      this.restartGame();
+    });
   }
   checkIfWin() {
     let stackedCards = 0;
@@ -168,6 +173,14 @@ class Solitaire{
   victory() {
     this.win.classList.remove("no-show");
   }
+  restartGame() {
+    this.reverseDeck.classList.remove("hidden-reverse");
+    this.mainDeck = null;
+    this.piles = [];
+    this.destinations = [];
+    this.deck.shuffle();
+    this.layoutCards();
+  }
   startGame() {
     this.deck.shuffle();
     this.layoutCards();
@@ -175,23 +188,5 @@ class Solitaire{
   }
 }
 
-class GameManager {
-  constructor() {
-    this.restartButton = document.querySelector(".button");
-    this.win = document.querySelector(".win");
-    this.init();
-  }
-  init() {
-    this.restartButton.addEventListener("click", () => {
-      this.win.classList.add("no-show");
-      this.play();
-    });
-    this.play();
-  }
-  play() {
-    this.game = new Solitaire();
-    this.game.startGame();
-  }
-}
-
-let gameManager = new GameManager();
+const game = new Solitaire();
+game.startGame();
