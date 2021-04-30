@@ -4,10 +4,12 @@ class MainDeck extends Deck {
   constructor(cards, location) {
     super(cards, location);
     this.currentShow = this.numberOfCards - 1;
-    this.reverseDeck = document.querySelector(".reverse");
+    this.reverseDeck = document.querySelector(".left-deck .reverse");
   }
-  showNext() {
-    this.currentShow -= 1;
+  showNext(fromReverseDeck = true) {
+    if(fromReverseDeck) {
+      this.currentShow -= 1;
+    }
     if(this.currentShow === this.numberOfCards) {
       this.currentShow = -1;
     }
@@ -36,8 +38,7 @@ class MainDeck extends Deck {
   }
   remove(selected) {
     this.cards.splice(selected,1);
-    this.currentShow += 1;
-    this.showNext();
+    this.showNext(false);
   }
   getEmptyHTML() {
     const emptyDiv = document.createElement("div");
