@@ -26,6 +26,9 @@ class MainDeck extends Deck {
       return;
     }
     if(this.currentShow === -2) {
+      if(this.numberOfCards === 1) {
+        this.reverseDeck.classList.add("hidden-reverse");
+      }
       this.currentShow = this.numberOfCards - 1;
       this.render()
       return;
