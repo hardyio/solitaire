@@ -132,8 +132,10 @@ class Solitaire{
         this.cardToCheck = false;
       }
     });
-    this.reverseDeck.addEventListener("click", (event) => {
-      this.mainDeck.showNext();
+    this.reverseDeck.addEventListener("click", () => {
+      if(this.mainDeck.numberOfCards) {
+        this.mainDeck.showNext();
+      }
       this.unselect();
       this.cardToCheck = false;
     });

@@ -6,13 +6,8 @@ class MainDeck extends Deck {
     this.currentShow = this.numberOfCards - 1;
     this.reverseDeck = document.querySelector(".left-deck .reverse");
   }
-  showNext(fromReverseDeck = true) {
-    if(fromReverseDeck) {
-      this.currentShow -= 1;
-    }
-    if(this.currentShow === this.numberOfCards) {
-      this.currentShow = -1;
-    }
+  showNext() {
+    this.currentShow -= 1;
     if(this.currentShow > 0) {
       this.render();
       return;
@@ -36,9 +31,21 @@ class MainDeck extends Deck {
       return;
     }
   }
+  showPrevious() {
+    if(this.currentShow === this.numberOfCards) {
+      if(this.numberOfCards === 0) {
+        this.reverseDeck.classList.add("hidden-reverse");
+        this.reverseDeck.classList.remove("reverse");
+      }
+      this.location.innerHTML = "";
+      this.location.appendChild(this.getEmptyHTML());
+      return;
+    }
+    this.render();
+  }
   remove(selected) {
     this.cards.splice(selected,1);
-    this.showNext(false);
+    this.showPrevious();
   }
   getEmptyHTML() {
     const emptyDiv = document.createElement("div");
