@@ -176,6 +176,7 @@ class Solitaire{
     this.win.classList.remove("no-show");
   }
   restartGame() {
+    this.reverseDeck.classList.add("reverse");
     this.reverseDeck.classList.remove("hidden-reverse");
     this.mainDeck = null;
     this.piles = [];
