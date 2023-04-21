@@ -89,7 +89,7 @@
 .reverse {
   border: 5px solid whitesmoke;
   background-color: #0eb7ff;
-  background-image: linear-gradient(120deg, #0eb7ff, #00ffff );
+  background-image: linear-gradient(120deg, #1f62d0, #256dd9 );
 }
 .selected,
 .selected:hover,
