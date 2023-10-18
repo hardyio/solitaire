@@ -188,7 +188,7 @@ class Solitaire{
     this.deck.shuffle();
     this.layoutCards();
     this.init();
-    alert("hello");
+    alert("22222222");
   }
 }
 
